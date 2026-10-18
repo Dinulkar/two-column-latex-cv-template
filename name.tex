@@ -1,0 +1,442 @@
+% ============================================================
+% Two-Column A4 CV Template
+% Compile with pdfLaTeX, XeLaTeX, or LuaLaTeX.
+% Add your portrait image as profile.png in the project folder.
+% Replace all [PLACEHOLDERS] with your own information.
+% ============================================================
+
+\RequirePackage{fix-cm}
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,margin=0mm,noheadfoot]{geometry}
+\usepackage{iftex}
+
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage[scaled=0.95]{helvet}
+  \renewcommand{\familydefault}{\sfdefault}
+\else
+  \usepackage{fontspec}
+  \IfFontExistsTF{Liberation Sans}
+    {\setmainfont{Liberation Sans}}
+    {\setmainfont{Latin Modern Sans}}
+\fi
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{eso-pic}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{pifont}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% -------------------- COLORS --------------------
+
+\definecolor{sidebar}{RGB}{222,234,246}
+\definecolor{ink}{RGB}{13,13,13}
+\definecolor{muted}{RGB}{52,52,52}
+\definecolor{linkblue}{RGB}{0,101,198}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=linkblue
+}
+
+\color{ink}
+
+% -------------------- SIDEBAR BACKGROUND --------------------
+
+\AddToShipoutPictureBG{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[sidebar]
+      (current page.north west)
+      rectangle ([xshift=81.3mm]current page.south west);
+  \end{tikzpicture}%
+}
+
+% -------------------- CUSTOM COMMANDS --------------------
+
+\newcommand{\sideheading}[1]{%
+  {\fontsize{16.5}{19}\selectfont
+   \bfseries\color{muted} #1\par}%
+  \vspace{0.8mm}
+  \hrule height 0.42pt
+  \vspace{2.7mm}%
+}
+
+\newcommand{\sidefield}[2]{%
+  {\bfseries #1}\par
+  \vspace{0.3mm}
+  #2\par
+  \vspace{2.9mm}%
+}
+
+\newcommand{\checkmarkcv}{\ding{51}}
+
+\newcommand{\jobtitle}[2]{%
+  \vspace{2.0mm}
+  {\bfseries #1}\ \mbox{(#2)}\par
+}
+
+\newcommand{\employer}[1]{%
+  {\bfseries\itshape #1}\par
+}
+
+\newenvironment{cvitems}{%
+  \begin{itemize}[
+    leftmargin=7.7mm,
+    label=\textbullet,
+    itemsep=0.4mm,
+    topsep=1.4mm,
+    parsep=0pt,
+    partopsep=0pt
+  ]
+}{\end{itemize}}
+
+% ============================================================
+% PAGE 1
+% ============================================================
+
+\begin{document}
+
+\fontsize{10.7}{15.3}\selectfont
+\noindent
+
+% ==================== LEFT SIDEBAR ====================
+
+\begin{minipage}[t]{81.3mm}
+  \vspace*{2mm}
+
+  \begin{center}
+    % Add a square portrait image named profile.png.
+    \IfFileExists{profile.png}{
+      \begin{tikzpicture}
+        \clip (0,0) circle (38.1mm);
+        \node[inner sep=0pt] at (0,0)
+          {\includegraphics[
+            width=77.5mm,
+            height=77.5mm
+          ]{profile.png}};
+        \draw[gray,line width=0.55pt]
+          (0,0) circle (38.1mm);
+      \end{tikzpicture}
+    }{
+      \begin{tikzpicture}
+        \fill[white] (0,0) circle (38.1mm);
+        \draw[gray,line width=0.55pt]
+          (0,0) circle (38.1mm);
+        \node[align=center,text=muted]
+          at (0,0) {Add your\\profile photo};
+      \end{tikzpicture}
+    }
+  \end{center}
+
+  \vspace{-1.5mm}
+  \hspace*{5.7mm}%
+  \begin{minipage}[t]{68.0mm}
+    \raggedright
+
+    % -------- CONTACT DETAILS --------
+
+    \sideheading{CONTACT}
+
+    \sidefield{Name:}{[Your Full Name]}
+
+    \sidefield{Phone:}{[Your Phone Number]}
+
+    \sidefield{Location:}{[City, Country]}
+
+    \sidefield{Email:}{
+      \color{muted}[your.email@example.com]
+    }
+
+    {\bfseries\color{muted} LinkedIn:}\par
+    \vspace{0.5mm}
+    \href{https://www.linkedin.com/in/your-profile}
+      {\underline{[LinkedIn Profile]}}\par
+
+    \vspace{4.2mm}
+
+    {\bfseries\color{muted} GitHub:}\par
+    \href{https://github.com/your-username}
+      {\underline{[GitHub Username]}}\par
+
+    \vspace{4.2mm}
+
+    {\bfseries\color{muted} Portfolio:}\par
+    \href{https://example.com}
+      {\underline{[Portfolio Website]}}\par
+
+    \vspace{6.4mm}
+
+    % -------- LANGUAGES --------
+
+    \sideheading{LANGUAGES}
+
+    \fontsize{10.0}{14.4}\selectfont
+    \renewcommand{\arraystretch}{1.25}
+    \setlength{\tabcolsep}{3pt}
+
+    \begin{tabular}{
+      @{}
+      p{25mm}
+      >{\centering\arraybackslash}p{12mm}
+      >{\centering\arraybackslash}p{12mm}
+      >{\centering\arraybackslash}p{12mm}
+      @{}
+    }
+      & Speak & Write & Read \\
+
+      [Language 1] &
+      \checkmarkcv & \checkmarkcv & \checkmarkcv \\[2.9mm]
+
+      [Language 2] &
+      \checkmarkcv & \checkmarkcv & \checkmarkcv \\[2.9mm]
+
+      [Language 3] &
+      \checkmarkcv & \checkmarkcv & \checkmarkcv
+    \end{tabular}
+
+  \end{minipage}
+\end{minipage}%
+% ==================== RIGHT CONTENT ====================
+
+\begin{minipage}[t]{128.7mm}
+  \vspace*{3.5mm}
+  \hspace*{2.6mm}%
+
+  \begin{minipage}[t]{122.7mm}
+    \raggedright
+    \fontsize{10.8}{16.0}\selectfont
+
+    {\fontsize{20.7}{23.0}\selectfont
+      \bfseries [YOUR FULL NAME]\par}
+
+    \vspace{3.1mm}
+
+    {\fontsize{12.4}{15.8}\selectfont
+      \bfseries WORK EXPERIENCE\par}
+
+    \vspace{2.0mm}
+
+    % -------- EXPERIENCE 1 --------
+
+    \jobtitle{[Job Title]}{[Month Year -- Month Year]}
+
+    \employer{[Company Name], [City, Country]}
+
+    [Brief summary of your role, project, or thesis]\par
+
+    \begin{cvitems}
+      \item [Describe a key responsibility or achievement.]
+      \item [Mention relevant tools, technologies, or methods.]
+      \item [Add a measurable result or impact where possible.]
+    \end{cvitems}
+
+    % -------- EXPERIENCE 2 --------
+
+    \jobtitle{[Previous Job Title]}
+      {[Month Year -- Month Year]}
+
+    \employer{[Previous Company], [City, Country]}
+
+    \begin{cvitems}
+      \item [Describe your contribution and its outcome.]
+      \item [Add another relevant responsibility or achievement.]
+    \end{cvitems}
+
+    % -------- EXPERIENCE 3 --------
+
+    \jobtitle{[Internship / Role]}
+      {[Month Year -- Month Year]}
+
+    \employer{[Organization Name], [City, Country]}
+
+    \begin{cvitems}
+      \item [Summarize the work you completed.]
+      \item [List a skill, tool, or method you used.]
+    \end{cvitems}
+
+    % -------- EXPERIENCE 4 --------
+
+    \jobtitle{[Additional Experience]}
+      {[Month Year -- Month Year]}
+
+    \employer{[Organization Name], [City, Country]}
+
+    \begin{cvitems}
+      \item [Add a relevant responsibility or achievement.]
+    \end{cvitems}
+
+  \end{minipage}
+\end{minipage}
+
+% ============================================================
+% PAGE 2
+% ============================================================
+
+\newpage
+
+\fontsize{10.7}{15.3}\selectfont
+\noindent
+
+% ==================== LEFT SIDEBAR ====================
+
+\begin{minipage}[t]{81.3mm}
+  \vspace*{3.9mm}
+  \hspace*{5.7mm}%
+
+  \begin{minipage}[t]{68mm}
+    \raggedright
+    \fontsize{11.2}{15.2}\selectfont
+
+    % -------- SKILLS --------
+
+    \sideheading{SKILLS}
+
+    \fontsize{10.7}{15.2}\selectfont
+
+    \begin{itemize}[
+      leftmargin=6.2mm,
+      topsep=0mm,
+      itemsep=2.0mm,
+      parsep=0pt
+    ]
+      \item [Technical Skill 1]
+      \item [Technical Skill 2]
+      \item [Software / Tool 1]
+      \item [Software / Tool 2]
+      \item [Programming Language]
+      \item [Relevant Methodology]
+      \item [Additional Skill]
+    \end{itemize}
+
+  \end{minipage}
+\end{minipage}%
+% ==================== RIGHT CONTENT ====================
+
+\begin{minipage}[t]{128.7mm}
+  \vspace*{4.5mm}
+  \hspace*{2.2mm}%
+
+  \begin{minipage}[t]{120.5mm}
+    \raggedright
+    \fontsize{11.2}{15.3}\selectfont
+
+    % ================= EDUCATION =================
+
+    {\fontsize{12.4}{15.8}\selectfont
+      \bfseries EDUCATION\par}
+
+    \vspace{0.45mm}
+    \hrule height 0.42pt
+    \vspace{5.4mm}
+
+    % -------- EDUCATION 1 --------
+
+    {\bfseries [Degree / Qualification]\par}
+
+    {\bfseries [Start Year -- End Year]\par}
+
+    {\itshape [University / Institution], [City, Country]\par}
+
+    \vspace{6.0mm}
+
+    % -------- EDUCATION 2 --------
+
+    {\bfseries [Second Degree / Qualification]\par}
+
+    {\bfseries [Start Year -- End Year]\par}
+
+    {\itshape [University / Institution], [City, Country]\par}
+
+    \vspace{6.0mm}
+
+    % ================= PROJECTS =================
+
+    {\fontsize{12.4}{15.8}\selectfont
+      \bfseries PROJECTS\par}
+
+    \vspace{0.45mm}
+    \hrule height 0.42pt
+    \vspace{5.6mm}
+
+    % -------- PROJECT 1 --------
+
+    {\bfseries [Project Title 1]\par}
+
+    {\bfseries [Month Year -- Month Year]\par}
+
+    {\itshape [Course / Organization / Institution]\par}
+
+    \begin{itemize}[
+      leftmargin=12.9mm,
+      labelsep=5.3mm,
+      label=\textbullet,
+      itemsep=0.4mm,
+      topsep=1.4mm,
+      parsep=0pt,
+      partopsep=0pt
+    ]
+      \item [Briefly explain the project's goal.]
+      \item [Describe the tools, technologies, or methods used.]
+      \item [Highlight an outcome or achievement.]
+    \end{itemize}
+
+    \vspace{7.7mm}
+
+    % -------- PROJECT 2 --------
+
+    {\bfseries [Project Title 2]\par}
+
+    {\bfseries [Month Year -- Month Year]\par}
+
+    {\itshape [Course / Organization / Institution]\par}
+
+    \begin{itemize}[
+      leftmargin=12.9mm,
+      labelsep=5.3mm,
+      label=\textbullet,
+      itemsep=0.4mm,
+      topsep=1.4mm,
+      parsep=0pt,
+      partopsep=0pt
+    ]
+      \item [Describe your contribution.]
+      \item [Mention the tools or technical approach.]
+      \item [State the result or learning outcome.]
+    \end{itemize}
+
+    \vspace{5.5mm}
+
+    % -------- PROJECT 3 --------
+
+    {\bfseries [Project Title 3]\par}
+
+    {\bfseries [Competition / Course / Personal Project]\par}
+
+    {\itshape [Organization / Institution]\par}
+
+    \begin{itemize}[
+      leftmargin=12.9mm,
+      labelsep=5.3mm,
+      label=\textbullet,
+      itemsep=0.4mm,
+      topsep=1.4mm,
+      parsep=0pt,
+      partopsep=0pt
+    ]
+      \item [Explain the project and your role.]
+      \item [Add a key technical detail or accomplishment.]
+    \end{itemize}
+
+  \end{minipage}
+\end{minipage}
+
+\end{document}
